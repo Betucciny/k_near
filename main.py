@@ -1,7 +1,6 @@
 import numpy as np
 import random
 from sklearn import datasets
-import matplotlib.pyplot as plt
 
 
 def knearestneighbors(X, Y, x, k):
