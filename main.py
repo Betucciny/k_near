@@ -1,5 +1,6 @@
 import numpy as np
 import random
+import matplotlib.pyplot as plt
 from sklearn import datasets
 
 
@@ -33,17 +34,40 @@ def main():
     # Split
     X_train = X[:100]
     Y_train = Y[:100]
+
     X_test = X[100:]
     Y_test = Y[100:]
-    print(Y_train)
+    Y_obteined = []
     buenas = 0
     # Predict
     for muestra, etiqueta in zip(X_test, Y_test):
         best_y = knearestneighbors(X_train, Y_train, muestra, k)
+        Y_obteined.append(best_y)
         if best_y == etiqueta:
             buenas += 1
         print("Etiqueta real: ", etiqueta, "Etiqueta predicha: ", best_y)
     print("Porcentaje de aciertos: ", buenas / len(Y_test) * 100, "%")
+
+    sepalo_test = [(x[0], x[1], etiqueta) for x, etiqueta in zip(X_test, Y_obteined)]
+    petalo_test = [(x[2], x[3], etiqueta) for x, etiqueta in zip(X_test, Y_obteined)]
+    sepalo_train = [(x[0], x[1], etiqueta) for x, etiqueta in zip(X_train, Y_train)]
+    petalo_train = [(x[2], x[3], etiqueta) for x, etiqueta in zip(X_train, Y_train)]
+    colores = ['red', 'green', 'blue']
+
+    for x, y, etiqueta in sepalo_train:
+        plt.scatter(x, y, color=colores[etiqueta], alpha=0.2)
+    for x, y, etiqueta in sepalo_test:
+        plt.scatter(x, y, color=colores[etiqueta])
+    plt.show()
+    plt.clf()
+
+    for x, y, etiqueta in petalo_train:
+        plt.scatter(x, y, color=colores[etiqueta], alpha=0.2)
+    for x, y, etiqueta in petalo_test:
+        plt.scatter(x, y, color=colores[etiqueta])
+    plt.show()
+    plt.clf()
+
 
 
 if __name__ == "__main__":
