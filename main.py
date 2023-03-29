@@ -20,13 +20,13 @@ def knearestneighbors(X, Y, x, k):
     return best_y
 
 
-
 def main():
     # Load Iris dataset
     k = 11
     iris = datasets.load_iris()
     X = iris.data
     Y = iris.target
+    etiquetas = list(iris.target_names)
     # Randomize
     datos = [(x, y) for x, y in zip(X, Y)]
     random.shuffle(datos)
@@ -45,7 +45,7 @@ def main():
         Y_obteined.append(best_y)
         if best_y == etiqueta:
             buenas += 1
-        print("Etiqueta real: ", etiqueta, "Etiqueta predicha: ", best_y)
+        print("Etiqueta real: ", etiquetas[etiqueta], "Etiqueta predicha: ", etiquetas[best_y])
     print("Porcentaje de aciertos: ", buenas / len(Y_test) * 100, "%")
 
     sepalo_test = [(x[0], x[1], etiqueta) for x, etiqueta in zip(X_test, Y_obteined)]
